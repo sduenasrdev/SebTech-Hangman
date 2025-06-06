@@ -1,0 +1,355 @@
+.container {
+  text-align: center;
+  padding: 1rem;
+  max-width: 800px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-header {
+  margin-bottom: 2rem;
+  
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    
+    label {
+      font-weight: bold;
+      color: #34495e;
+      font-size: 0.9rem;
+    }
+    
+    select {
+      padding: 0.5rem;
+      border: 2px solid #bdc3c7;
+      border-radius: 6px;
+      background: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: border-color 0.3s;
+      
+      &:hover, &:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+    }
+  }
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 80px;
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+.game-area {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.hangman-display {
+  .hangman-art {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-family: monospace;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: pre-line;
+  }
+}
+
+.word-info {
+  flex: 1;
+  min-width: 300px;
+  
+  .category-display {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .word-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 0.3em;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+      transition: width 0.3s ease;
+    }
+  }
+  
+  .progress-text {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+  }
+}
+
+.game-status {
+  margin-bottom: 1.5rem;
+  
+  .incorrect-count {
+    font-size: 1.1rem;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    
+    .remaining {
+      color: #95a5a6;
+      font-weight: normal;
+    }
+  }
+  
+  .wrong-letters {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    
+    .wrong-letter-list {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.hint-section {
+  margin-bottom: 1.5rem;
+  
+  .hint-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
+
+.letters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  .letter-btn {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    
+    &:hover:not(:disabled) {
+      background: #3498db;
+      color: white;
+      border-color: #2980b9;
+      transform: translateY(-1px);
+    }
+    
+    &.correct {
+      background: #2ecc71;
+      color: white;
+      border-color: #27ae60;
+    }
+    
+    &.incorrect {
+      background: #e74c3c;
+      color: white;
+      border-color: #c0392b;
+    }
+    
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+}
+
+.result {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  margin-top: 2rem;
+  
+  .win-message, .lose-message {
+    margin-bottom: 1.5rem;
+    
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    
+    p {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .hint-bonus {
+      font-style: italic;
+      opacity: 0.9;
+    }
+  }
+  
+  .result-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      
+      &.play-again-btn {
+        background: #2ecc71;
+        color: white;
+        
+        &:hover {
+          background: #27ae60;
+          transform: translateY(-2px);
+        }
+      }
+      
+      &.reset-stats-btn {
+        background: #e74c3c;
+        color: white;
+        
+        &:hover {
+          background: #c0392b;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .game-area {
+    flex-direction: column;
+  }
+  
+  .stats {
+    gap: 1rem;
+    
+    .stat {
+      padding: 0.75rem;
+      min-width: 60px;
+      
+      .stat-value {
+        font-size: 1.2rem;
+      }
+    }
+  }
+  
+  .word-info .word-display {
+    font-size: 2rem;
+  }
+  
+  .letters {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.25rem;
+    
+    .letter-btn {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+}

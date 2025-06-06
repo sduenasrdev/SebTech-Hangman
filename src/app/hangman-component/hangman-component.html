@@ -1,0 +1,136 @@
+<div class="container">
+  <header class="game-header">
+    <h1>🎯 Hangman Game</h1>
+    
+    <!-- Game Controls -->
+    <div class="controls">
+      <div class="control-group">
+        <label>Category:</label>
+        <select (change)="changeCategory($any($event.target).value)" [value]="selectedCategory">
+          @for (category of categories; track category) {
+            <option [value]="category">{{ category }}</option>
+          }
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label>Difficulty:</label>
+        <select (change)="changeDifficulty($any($event.target).value)" [value]="difficulty">
+          <option value="easy">Easy (8 tries)</option>
+          <option value="normal">Normal (6 tries)</option>
+          <option value="hard">Hard (4 tries)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Game Stats -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-value">{{ wins }}</span>
+      <span class="stat-label">Wins</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ losses }}</span>
+      <span class="stat-label">Losses</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ winRate }}%</span>
+      <span class="stat-label">Win Rate</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ streak }}</span>
+      <span class="stat-label">Streak</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">{{ bestStreak }}</span>
+      <span class="stat-label">Best</span>
+    </div>
+  </div>
+
+  <!-- Game Area -->
+  <div class="game-area">
+    <div class="hangman-display">
+      <pre class="hangman-art">{{ hangmanStage }}</pre>
+    </div>
+    
+    <div class="word-info">
+      <p class="category-display">Category: <strong>{{ currentCategory }}</strong></p>
+      <div class="word-display">{{ maskedWord }}</div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+      <p class="progress-text">{{ progress }}% Complete</p>
+    </div>
+  </div>
+
+  <!-- Game Status -->
+  <div class="game-status">
+    <p class="incorrect-count">
+      Incorrect: {{ incorrect }} / {{ maxIncorrect }}
+      <span class="remaining">({{ maxIncorrect - incorrect }} left)</span>
+    </p>
+    
+    @if (incorrectGuesses.length > 0) {
+      <p class="wrong-letters">
+        Wrong letters: <span class="wrong-letter-list">{{ incorrectGuesses.join(', ') }}</span>
+      </p>
+    }
+  </div>
+
+  <!-- Hint System -->
+  <div class="hint-section">
+    <button 
+      class="hint-btn" 
+      (click)="useHint()" 
+      [disabled]="hintsUsed >= maxHints || isWin || isLose">
+      💡 Use Hint ({{ maxHints - hintsUsed }} left)
+    </button>
+  </div>
+
+  <!-- Letter Buttons -->
+  <div class="letters">
+    @for (letter of 'abcdefghijklmnopqrstuvwxyz'.split(''); track letter) {
+      <button
+        class="letter-btn"
+        [class.correct]="guesses.includes(letter) && word.includes(letter)"
+        [class.incorrect]="guesses.includes(letter) && !word.includes(letter)"
+        (click)="handleGuess(letter)"
+        [disabled]="guesses.includes(letter) || isWin || isLose">
+        {{ letter.toUpperCase() }}
+      </button>
+    }
+  </div>
+
+  <!-- Game Result -->
+  @if (isWin || isLose) {
+    <div class="result">
+      @if (isWin) {
+        <div class="win-message">
+          <h2>🎉 Congratulations!</h2>
+          <p>You guessed the word <strong>"{{ word.toUpperCase() }}"</strong></p>
+          <p class="hint-bonus">
+            @if (hintsUsed === 0) {
+              Perfect! No hints used! 🌟
+            } @else {
+              Hints used: {{ hintsUsed }}
+            }
+          </p>
+        </div>
+      }
+      
+      @if (isLose) {
+        <div class="lose-message">
+          <h2>💀 Game Over</h2>
+          <p>The word was <strong>"{{ word.toUpperCase() }}"</strong></p>
+          <p>Better luck next time!</p>
+        </div>
+      }
+      
+      <div class="result-actions">
+        <button class="play-again-btn" (click)="reset()">🎮 Play Again</button>
+        <button class="reset-stats-btn" (click)="resetStats()">📊 Reset Stats</button>
+      </div>
+    </div>
+  }
+</div>
