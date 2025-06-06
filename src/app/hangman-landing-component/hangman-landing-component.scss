@@ -1,0 +1,364 @@
+.landing-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.landing-content {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Header Styles */
+.landing-header {
+  margin-bottom: 3rem;
+  
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .hangman-icon {
+    position: relative;
+    width: 100px;
+    height: 120px;
+    margin-bottom: 1rem;
+    
+    .gallows {
+      position: absolute;
+      
+      .post {
+        width: 4px;
+        height: 80px;
+        background: #8b4513;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+      }
+      
+      .beam {
+        width: 60px;
+        height: 4px;
+        background: #8b4513;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+      }
+      
+      .noose {
+        width: 2px;
+        height: 20px;
+        background: #654321;
+        position: absolute;
+        left: 70px;
+        top: 20px;
+      }
+    }
+    
+    .figure {
+      position: absolute;
+      left: 60px;
+      top: 35px;
+      
+      .head {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #2c3e50;
+        border-radius: 50%;
+        margin: 0 auto 5px;
+      }
+      
+      .body {
+        width: 3px;
+        height: 30px;
+        background: #2c3e50;
+        margin: 0 auto;
+      }
+      
+      .arm {
+        width: 15px;
+        height: 3px;
+        background: #2c3e50;
+        position: absolute;
+        top: 35px;
+        
+        &.left {
+          left: -12px;
+          transform: rotate(-30deg);
+        }
+        
+        &.right {
+          right: -12px;
+          transform: rotate(30deg);
+        }
+      }
+      
+      .leg {
+        width: 15px;
+        height: 3px;
+        background: #2c3e50;
+        position: absolute;
+        top: 60px;
+        
+        &.left {
+          left: -8px;
+          transform: rotate(-45deg);
+        }
+        
+        &.right {
+          right: -8px;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+  
+  .game-title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    letter-spacing: 0.2em;
+    margin: 0;
+    
+    @media (max-width: 768px) {
+      font-size: 3rem;
+    }
+  }
+  
+  .game-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    margin: 0;
+    font-style: italic;
+  }
+}
+
+/* Mode Selection */
+.mode-selection {
+  margin-bottom: 4rem;
+  
+  h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+}
+
+.mode-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.mode-card {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  .card-icon {
+    margin-bottom: 1.5rem;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .player-icon {
+    position: relative;
+    margin: 0 10px;
+    
+    .player-head {
+      width: 25px;
+      height: 25px;
+      background: #3498db;
+      border-radius: 50%;
+      margin: 0 auto 5px;
+    }
+    
+    .player-body {
+      width: 15px;
+      height: 30px;
+      background: #2c3e50;
+      margin: 0 auto;
+      border-radius: 7px;
+    }
+  }
+  
+  .players-icon {
+    display: flex;
+    gap: 20px;
+  }
+  
+  h3 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    
+    li {
+      color: #34495e;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+  }
+  
+  .mode-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    &.single-btn {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      
+      &:hover {
+        background: linear-gradient(135deg, #27ae60, #229954);
+        transform: translateY(-2px);
+      }
+    }
+    
+    &.multiplayer-btn {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      
+      &:hover {
+        background: linear-gradient(135deg, #c0392b, #a93226);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+/* Game Info Section */
+.game-info {
+  margin-bottom: 3rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.info-item {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  color: white;
+  
+  .info-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  p {
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+  }
+}
+
+/* Footer */
+.landing-footer {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+  
+  p {
+    margin: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .landing-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .mode-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .mode-card {
+    padding: 1.5rem;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .info-item {
+    padding: 1.5rem;
+  }
+}
+
+/* Animation for the hangman figure */
+@keyframes swing {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.hangman-icon:hover .figure {
+  animation: swing 2s ease-in-out infinite;
+}

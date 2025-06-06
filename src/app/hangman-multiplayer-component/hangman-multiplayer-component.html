@@ -1,0 +1,229 @@
+<div class="multiplayer-container">
+  
+  <!-- Setup Phase -->
+  @if (gamePhase === 'setup') {
+    <div class="setup-phase">
+      <header class="multiplayer-header">
+        <h1>👥 Multiplayer Hangman</h1>
+        <p>Enter player names to get started</p>
+      </header>
+      
+      <div class="player-setup">
+        <div class="player-input">
+          <label for="player1">Player 1 Name:</label>
+          <input 
+            id="player1"
+            type="text" 
+            [(ngModel)]="player1Name" 
+            placeholder="Enter Player 1 name"
+            maxlength="15"
+            (keyup.enter)="canStartGame() && startGame()">
+        </div>
+        
+        <div class="vs-divider">VS</div>
+        
+        <div class="player-input">
+          <label for="player2">Player 2 Name:</label>
+          <input 
+            id="player2"
+            type="text" 
+            [(ngModel)]="player2Name" 
+            placeholder="Enter Player 2 name"
+            maxlength="15"
+            (keyup.enter)="canStartGame() && startGame()">
+        </div>
+      </div>
+      
+      <button 
+        class="start-btn" 
+        (click)="startGame()" 
+        [disabled]="!canStartGame()">
+        🎮 Start Game
+      </button>
+      
+      <div class="game-rules">
+        <h3>How to Play:</h3>
+        <ul>
+          <li>{{ player1Name || 'Player 1' }} creates a word first</li>
+          <li>{{ player2Name || 'Player 2' }} tries to guess it</li>
+          <li>Then you switch roles for the next round</li>
+          <li>First to 3 wins takes the championship!</li>
+        </ul>
+      </div>
+    </div>
+  }
+  
+  <!-- Word Entry Phase -->
+  @if (gamePhase === 'word-entry') {
+    <div class="word-entry-phase">
+      <div class="phase-header">
+        <h2>📝 {{ currentPlayerName }}'s Turn</h2>
+        <p>Create a word for {{ guessingPlayerName }} to guess</p>
+        <div class="privacy-warning">
+          🔒 Make sure {{ guessingPlayerName }} can't see the screen!
+        </div>
+      </div>
+      
+      <div class="word-input-section">
+        <div class="input-group">
+          <label for="customWord">Enter your word (3-20 letters):</label>
+          <input 
+            id="customWord"
+            type="text" 
+            [(ngModel)]="customWord" 
+            placeholder="Enter a word..."
+            maxlength="20"
+            (keyup.enter)="isValidWord() && submitWord()"
+            [class.invalid]="customWord && !isValidWord()">
+          <div class="char-count">{{ customWord.length }}/20</div>
+        </div>
+        
+        @if (customWord && !isValidWord()) {
+          <div class="validation-error">
+            ⚠️ Word must be 3-20 letters long and contain only letters and spaces
+          </div>
+        }
+      </div>
+      
+      <button 
+        class="submit-word-btn" 
+        (click)="submitWord()" 
+        [disabled]="!isValidWord()">
+        ✅ Submit Word
+      </button>
+      
+      <div class="word-tips">
+        <h4>💡 Tips for good words:</h4>
+        <ul>
+          <li>Choose words your friend might know</li>
+          <li>Mix common and uncommon letters</li>
+          <li>Consider phrases with spaces</li>
+          <li>Add a helpful category hint</li>
+        </ul>
+      </div>
+    </div>
+  }
+  
+  <!-- Playing Phase -->
+  @if (gamePhase === 'playing') {
+    <div class="playing-phase">
+      <!-- Game Header -->
+      <div class="game-header">
+        <h2>🎯 {{ guessingPlayerName }}'s Turn to Guess</h2>
+        <div class="score-display">
+          <div class="score">
+            <span class="player-name">{{ player1Name }}</span>
+            <span class="score-value">{{ player1Wins }}</span>
+          </div>
+          <div class="score-divider">-</div>
+          <div class="score">
+            <span class="player-name">{{ player2Name }}</span>
+            <span class="score-value">{{ player2Wins }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Game Area -->
+      <div class="game-area">
+        <div class="hangman-display">
+          <pre class="hangman-art">{{ hangmanStage }}</pre>
+        </div>
+        
+        <div class="word-info">
+          @if (category) {
+            <p class="category-display">Category: <strong>{{ category }}</strong></p>
+          }
+          <div class="word-display">{{ maskedWord }}</div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+          </div>
+          <p class="progress-text">{{ progress }}% Complete</p>
+        </div>
+      </div>
+      
+      <!-- Game Status -->
+      <div class="game-status">
+        <p class="incorrect-count">
+          Incorrect: {{ incorrect }} / {{ maxIncorrect }}
+          <span class="remaining">({{ maxIncorrect - incorrect }} left)</span>
+        </p>
+        
+        @if (incorrectGuesses.length > 0) {
+          <p class="wrong-letters">
+            Wrong letters: <span class="wrong-letter-list">{{ incorrectGuesses.join(', ') }}</span>
+          </p>
+        }
+      </div>
+      
+      <!-- Letter Buttons -->
+      <div class="letters">
+        @for (letter of 'abcdefghijklmnopqrstuvwxyz'.split(''); track letter) {
+          <button
+            class="letter-btn"
+            [class.correct]="guesses.includes(letter) && word.toLowerCase().includes(letter)"
+            [class.incorrect]="guesses.includes(letter) && !word.toLowerCase().includes(letter)"
+            (click)="handleGuess(letter)"
+            [disabled]="guesses.includes(letter) || isWin || isLose">
+            {{ letter.toUpperCase() }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+  
+  <!-- Result Phase -->
+  @if (gamePhase === 'result') {
+    <div class="result-phase">
+      @if (isWin) {
+        <div class="win-message">
+          <h2>🎉 {{ guessingPlayerName }} Wins!</h2>
+          <p>Correctly guessed: <strong>"{{ word.toUpperCase() }}"</strong></p>
+          <p class="winner-praise">Great guessing skills! 🌟</p>
+        </div>
+      }
+      
+      @if (isLose) {
+        <div class="lose-message">
+          <h2>💀 {{ currentPlayerName }} Wins!</h2>
+          <p>The word was: <strong>"{{ word.toUpperCase() }}"</strong></p>
+          <p class="winner-praise">{{ guessingPlayerName }} couldn't guess it! 🎯</p>
+        </div>
+      }
+      
+      <!-- Current Score -->
+      <div class="final-score">
+        <h3>Current Score:</h3>
+        <div class="score-board">
+          <div class="player-score" [class.leading]="player1Wins > player2Wins">
+            <span class="name">{{ player1Name }}</span>
+            <span class="wins">{{ player1Wins }}</span>
+          </div>
+          <div class="vs">VS</div>
+          <div class="player-score" [class.leading]="player2Wins > player1Wins">
+            <span class="name">{{ player2Name }}</span>
+            <span class="wins">{{ player2Wins }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="result-actions">
+        <button class="play-again-btn" (click)="playAgain()">
+          🔄 Play Again (Switch Roles)
+        </button>
+        <button class="new-game-btn" (click)="newGame()">
+          🆕 New Game
+        </button>
+      </div>
+      
+      <!-- Championship Check -->
+      @if (player1Wins >= 3 || player2Wins >= 3) {
+        <div class="championship">
+          <h2>🏆 CHAMPION: {{ player1Wins >= 3 ? player1Name : player2Name }}!</h2>
+          <p>First to 3 wins! Amazing job! 🎊</p>
+        </div>
+      }
+    </div>
+  }
+  
+</div>

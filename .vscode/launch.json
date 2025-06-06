@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Seb Tech - Hangman",
+      "type": "chrome", 
+      "request": "launch",
+      "preLaunchTask": "npm: start-no-open",
+      "url": "http://localhost:4200/"
+    }
+  ]
+}
