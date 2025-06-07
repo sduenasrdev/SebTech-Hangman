@@ -1,6 +1,5 @@
 <div class="landing-container">
   <div class="landing-content">
-    <!-- Header -->
     <header class="landing-header">
       <div class="logo">
         <div class="hangman-icon">
@@ -18,17 +17,14 @@
             <div class="leg right"></div>
           </div>
         </div>
-        <h1 class="game-title">HANGMAN</h1>
-        <p class="game-subtitle">The Classic Word Guessing Game</p>
+        <h1 class="game-title">Seb's HANGMAN</h1>
       </div>
     </header>
 
-    <!-- Game Mode Selection -->
     <main class="mode-selection">
       <h2>Choose Your Game Mode</h2>
       
       <div class="mode-cards">
-        <!-- Single Player Card -->
         <div class="mode-card single-player" (click)="selectMode('single')">
           <div class="card-icon">
             <div class="player-icon">
@@ -38,16 +34,9 @@
           </div>
           <h3>Single Player</h3>
           <p>Play against the computer</p>
-          <ul class="features">
-            <li>🎯 Multiple categories</li>
-            <li>🏆 Difficulty levels</li>
-            <li>💡 Hint system</li>
-            <li>📊 Statistics tracking</li>
-          </ul>
           <button class="mode-btn single-btn">Play Solo</button>
         </div>
 
-        <!-- Multiplayer Card -->
         <div class="mode-card multiplayer" (click)="selectMode('multiplayer')">
           <div class="card-icon">
             <div class="players-icon">
@@ -63,41 +52,21 @@
           </div>
           <h3>Multiplayer</h3>
           <p>Challenge your friends</p>
-          <ul class="features">
-            <li>👥 Play with friends</li>
-            <li>🔥 Competitive mode</li>
-            <li>💬 Real-time chat</li>
-            <li>🏅 Leaderboards</li>
-          </ul>
           <button class="mode-btn multiplayer-btn">Play Together</button>
         </div>
       </div>
     </main>
 
-    <!-- Game Info -->
     <section class="game-info">
       <div class="info-grid">
         <div class="info-item">
           <div class="info-icon">🎮</div>
           <h4>How to Play</h4>
-          <p>Guess the hidden word by selecting letters. Be careful - too many wrong guesses and it's game over!</p>
-        </div>
-        
-        <div class="info-item">
-          <div class="info-icon">🏆</div>
-          <h4>Challenge Yourself</h4>
-          <p>Test your vocabulary across different categories and difficulty levels. Track your progress and improve!</p>
-        </div>
-        
-        <div class="info-item">
-          <div class="info-icon">🌟</div>
-          <h4>Features</h4>
-          <p>Enjoy beautiful animations, multiple themes, hint systems, and comprehensive statistics tracking.</p>
+          <p>Guess the hidden word by selecting letters. You get hints depending on level of difficulty</p>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="landing-footer">
       <p>&copy; 2025 Hangman Game. Built with Angular & TypeScript</p>
     </footer>
