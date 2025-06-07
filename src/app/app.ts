@@ -32,16 +32,7 @@ import { HangmanMultiplayerComponent } from './hangman-multiplayer-component/han
             <button class="back-btn" (click)="goBackToLanding()">
               ← Back to Menu
             </button>
-            <div class="coming-soon">
-              <h2>🚧 Multiplayer Mode</h2>
-              <p>This feature is coming soon!</p>
-              <p>Create your <code>hangman-multiplayer-component</code> and it will appear here.</p>
-              <button class="temp-back-btn" (click)="goBackToLanding()">
-                Return to Landing Page
-              </button>
-            </div>
-            <!-- Uncomment this when you create the multiplayer component -->
-            <!-- <app-hangman-multiplayer></app-hangman-multiplayer> -->
+            <app-hangman-multiplayer-component></app-hangman-multiplayer-component>
           </div>
         }
       }
