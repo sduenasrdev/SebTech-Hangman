@@ -47,7 +47,7 @@
           <li>{{ player1Name || 'Player 1' }} creates a word first</li>
           <li>{{ player2Name || 'Player 2' }} tries to guess it</li>
           <li>Then you switch roles for the next round</li>
-          <li>First to 3 wins takes the championship!</li>
+          <li>First to 3 wins</li>
         </ul>
       </div>
     </div>
@@ -91,16 +91,6 @@
         [disabled]="!isValidWord()">
         ✅ Submit Word
       </button>
-      
-      <div class="word-tips">
-        <h4>💡 Tips for good words:</h4>
-        <ul>
-          <li>Choose words your friend might know</li>
-          <li>Mix common and uncommon letters</li>
-          <li>Consider phrases with spaces</li>
-          <li>Add a helpful category hint</li>
-        </ul>
-      </div>
     </div>
   }
   
@@ -220,7 +210,7 @@
       @if (player1Wins >= 3 || player2Wins >= 3) {
         <div class="championship">
           <h2>🏆 CHAMPION: {{ player1Wins >= 3 ? player1Name : player2Name }}!</h2>
-          <p>First to 3 wins! Amazing job! 🎊</p>
+          <p>First to 3 wins! 🎊</p>
         </div>
       }
     </div>

@@ -8,10 +8,38 @@ import { Component } from '@angular/core';
 })
 export class HangmanComponent {
   wordCategories = {
-    'Programming': ['angular', 'typescript', 'javascript', 'component', 'service', 'framework', 'module', 'directive'],
-    'Animals': ['elephant', 'giraffe', 'penguin', 'dolphin', 'butterfly', 'kangaroo', 'rhinoceros'],
-    'Countries': ['australia', 'switzerland', 'madagascar', 'argentina', 'netherlands', 'philippines'],
-    'Foods': ['pizza', 'hamburger', 'spaghetti', 'chocolate', 'strawberry', 'sandwich', 'avocado']
+    'Activities': [
+      'swimming', 'dancing', 'painting', 'cycling', 'hiking', 'gardening', 'fishing',
+      'cooking', 'baking', 'reading', 'jogging', 'camping', 'knitting', 'skating'
+    ],
+    'Animals': [
+      'elephant', 'giraffe', 'penguin', 'dolphin', 'butterfly', 'kangaroo', 'rhinoceros',
+      'alligator', 'cheetah', 'hippopotamus', 'armadillo', 'chameleon', 'porcupine'
+    ],
+    'Countries': [
+      'australia', 'switzerland', 'madagascar', 'argentina', 'netherlands', 'philippines',
+      'thailand', 'indonesia', 'portugal', 'venezuela', 'colombia', 'kazakhstan'
+    ],
+    'Foods': [
+      'pizza', 'hamburger', 'spaghetti', 'chocolate', 'strawberry', 'sandwich', 'avocado',
+      'lasagna', 'pancakes', 'sushi', 'burrito', 'omelette', 'croissant', 'tortilla'
+    ],
+    'Sports': [
+      'football', 'basketball', 'baseball', 'cricket', 'hockey', 'badminton', 'volleyball',
+      'wrestling', 'gymnastics', 'snowboarding', 'archery', 'fencing'
+    ],
+    'Movies': [
+      'inception', 'gladiator', 'avatar', 'titanic', 'interstellar', 'matrix', 'godfather',
+      'casablanca', 'rocky', 'jaws', 'notebook', 'whiplash'
+    ],
+    'Space': [
+      'galaxy', 'asteroid', 'nebula', 'supernova', 'satellite', 'telescope', 'spaceship',
+      'meteorite', 'orbit', 'blackhole', 'cosmos', 'planetarium'
+    ],
+    'Jobs': [
+      'engineer', 'architect', 'teacher', 'plumber', 'mechanic', 'lawyer', 'scientist',
+      'pharmacist', 'designer', 'barista', 'firefighter', 'electrician'
+    ]
   };
   
   selectedCategory = 'Programming';
