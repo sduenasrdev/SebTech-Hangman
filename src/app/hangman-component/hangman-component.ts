@@ -42,7 +42,7 @@ export class HangmanComponent {
     ]
   };
   
-  selectedCategory = 'Programming';
+  selectedCategory = 'Activities';
   word = this.pickWord();
   currentCategory = this.selectedCategory;
   guesses: string[] = [];
