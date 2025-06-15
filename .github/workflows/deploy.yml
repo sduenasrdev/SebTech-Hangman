@@ -17,6 +17,8 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        submodules: false
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -41,8 +43,21 @@ jobs:
           if [ -d "dist/seb-hangman-app/browser" ]; then
             echo "Contents of dist/seb-hangman-app/browser:"
             ls -la dist/seb-hangman-app/browser/
+            echo "Checking if index.html exists:"
+            if [ -f "dist/seb-hangman-app/browser/index.html" ]; then
+              echo "✅ index.html found!"
+              head -5 dist/seb-hangman-app/browser/index.html
+            else
+              echo "❌ index.html NOT found!"
+            fi
           fi
         fi
+
+    - name: Verify deployment directory
+      run: |
+        echo "About to deploy from: ./dist/seb-hangman-app/browser"
+        echo "Files that will be deployed:"
+        ls -la ./dist/seb-hangman-app/browser/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
